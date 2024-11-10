@@ -6,7 +6,6 @@ RUN cpan install CGI
 
 # Copy the Perl script and the HTML file to the container
 COPY hello_world.pl /usr/local/bin/hello_world.pl
-COPY index.html /usr/share/nginx/html/index.html
 
 # Expose port 80 (the default port for Nginx)
 EXPOSE 80

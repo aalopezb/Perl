@@ -1,20 +1,24 @@
 FROM perl:latest
 
-# Install necessary dependencies (such as Nginx)
-RUN apt-get update && apt-get install -y nginx
+# Install necessary dependencies, such as Nginx and the CGI module for Perl
+RUN apt-get update && apt-get install -y nginx libcgi-pm-perl \
+    && cpan CGI
 
-# Create a directory to store the Perl script and Nginx configuration
+
+# Set the working directory for web files
 WORKDIR /var/www/html
 
-# Copy the index.html file and the Perl script to the container
-COPY index.html /var/www/html/index.html
+# Copy the Perl script to the container
 COPY app.pl /var/www/html/app.pl
 
-# Nginx configuration (to serve static content and the Perl script)
+# Copy the Nginx configuration
 COPY nginx.conf /etc/nginx/nginx.conf
 
-# Expose port 80 for Nginx to use
+# Copy the index.html file to the container
+COPY index.html /var/www/html/index.html
+
+# Expose port 80 for Nginx
 EXPOSE 80
 
-# Run Nginx and the Perl script
-CMD service nginx start && perl /var/www/html/app.pl
+# Run Nginx in the background and the Perl script
+CMD service nginx start && tail -f /dev/null

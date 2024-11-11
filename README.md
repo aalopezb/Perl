@@ -6,7 +6,9 @@ This is a simple "Hello World" web application built using with Perl Language. T
 ## 🗂 Project Structure
 nodejs/ <br>
 ├── Dockerfile <br>
-├── hello_world.pl <br>
+├── app.pl <br>
+├── nginx.conf <br>
+├── index.html <br>
 └── README.md
 
 ## 🛠 Technologies Used

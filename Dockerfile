@@ -1,14 +1,20 @@
-# Use a base image of Perl
 FROM perl:latest
 
-# Install the CGI module required for running the Perl script
-RUN cpan install CGI
+# Install necessary dependencies (such as Nginx)
+RUN apt-get update && apt-get install -y nginx
 
-# Copy the Perl script and the HTML file to the container
-COPY hello_world.pl /usr/local/bin/hello_world.pl
+# Create a directory to store the Perl script and Nginx configuration
+WORKDIR /var/www/html
 
-# Expose port 80 (the default port for Nginx)
+# Copy the index.html file and the Perl script to the container
+COPY index.html /var/www/html/index.html
+COPY app.pl /var/www/html/app.pl
+
+# Nginx configuration (to serve static content and the Perl script)
+COPY nginx.conf /etc/nginx/nginx.conf
+
+# Expose port 80 for Nginx to use
 EXPOSE 80
 
-# Command to run the Perl script with Nginx
-CMD ["perl", "/usr/local/bin/hello_world.pl"]
+# Run Nginx and the Perl script
+CMD service nginx start && perl /var/www/html/app.pl

@@ -6,8 +6,7 @@ RUN apt-get update && apt-get install -y nginx
 # Create a directory to store the Perl script and Nginx configuration
 WORKDIR /var/www/html
 
-# Copy the index.html file and the Perl script to the container
-COPY index.html /var/www/html/index.html
+# Copy the Perl script to the container
 COPY app.pl /var/www/html/app.pl
 
 # Nginx configuration (to serve static content and the Perl script)

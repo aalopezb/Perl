@@ -1,1 +1,1 @@
-web: plackup -p $PORT app.pl
+web: plackup app.pl -p $PORT
